@@ -14,4 +14,10 @@ describe("Newsletter Subscribe Form", () => {
     cy.getByData("submit-button").click()
     cy.getByData("success-message").should("not.exist")
   })
+
+  it("does NOT allow a duplicate email address", () => {
+    cy.getByData("email-input").type("john@example.com")
+    cy.getByData("submit-button").click()
+    cy.getByData("server-error-message").should("exist").contains("john@example.com").contains("already exists")
+  })
 })
