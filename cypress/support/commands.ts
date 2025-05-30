@@ -1,9 +1,16 @@
 /// <reference types="cypress" />
 const originalVisit = cy.visit
+const originalLocation = cy.location
 
 Cypress.Commands.overwrite('visit', (originalFn, ...args) => {
   originalFn(...args)
   cy.get('#__next', { timeout: 10000 }).should('be.visible')
+})
+
+Cypress.Commands.overwriteQuery('location', function (originalFn, key, options = {}) {
+  const defaultTimeout = 10000
+  const newOptions = { timeout: defaultTimeout, ...options }
+  return originalFn.call(this, key, newOptions)
 })
 
 declare namespace Cypress {
@@ -51,4 +58,4 @@ Cypress.Commands.add("getByData", (selector) => {
 //       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
 //     }
 //   }
-// }
+// }*/
