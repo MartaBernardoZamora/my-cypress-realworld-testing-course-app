@@ -22,3 +22,5 @@ describe("User Journey", () => {
 
   })
 })
+
+export {}

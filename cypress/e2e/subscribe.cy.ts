@@ -1,3 +1,5 @@
+import exp from "constants"
+
 describe("Newsletter Subscribe Form", () => {
   beforeEach(() => {
     cy.visit("http://localhost:3000")
@@ -21,3 +23,5 @@ describe("Newsletter Subscribe Form", () => {
     cy.getByData("server-error-message").should("exist").contains("john@example.com").contains("already exists")
   })
 })
+
+export {}
