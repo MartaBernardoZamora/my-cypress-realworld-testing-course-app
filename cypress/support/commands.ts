@@ -12,10 +12,11 @@ Cypress.Commands.overwriteQuery('location', function (originalFn, key, options =
   const newOptions = { timeout: defaultTimeout, ...options }
   return originalFn.call(this, key, newOptions)
 })
-
-declare namespace Cypress {
-  interface Chainable {
-    getByData(dataTestAttribute: string): Chainable<JQuery<HTMLElement>>
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      getByData(dataTestAttribute: string): Chainable<JQuery<HTMLElement>>
+    }
   }
 }
 
@@ -23,6 +24,7 @@ Cypress.Commands.add("getByData", (selector) => {
   return cy.get(`[data-test=${selector}]`)
 })
 
+export {}
 // ***********************************************
 // This example commands.ts shows you how to
 // create various custom commands and overwrite
